@@ -58,6 +58,15 @@
     </developer>
   </developers>
   
+
+ <distributionManagement>
+    <repository>
+      <id>github</id>
+      <name>GitHub Packages</name>
+      <url>https://maven.pkg.github.com/nicolasyazman/maths</url>
+    </repository>
+  </distributionManagement>
+
   	<scm>
   		<connection>scm:git:git@github.com:nicolasyazman/maths.git</connection>
   		<developerConnection>scm:git:git@github.com:nicolasyazman/maths.git</developerConnection>
@@ -106,37 +115,17 @@
           <artifactId>maven-project-info-reports-plugin</artifactId>
           <version>3.6.1</version>
         </plugin>
-            <plugin>
-      <groupId>org.sonatype.central</groupId>
-      <artifactId>central-publishing-maven-plugin</artifactId>
-      <version>0.5.0</version>
-      <extensions>true</extensions>
-      <configuration>
-        <publishingServerId>central</publishingServerId>
-        <tokenAuth>true</tokenAuth>
-      </configuration>
-    </plugin>
+         <plugin>
+          <groupId>org.sonatype.central</groupId>
+          <artifactId>central-publishing-maven-plugin</artifactId>
+          <version>0.6.0</version>
+          <extensions>true</extensions>
+          <configuration>
+            <publishingServerId>central</publishingServerId>
+          </configuration>
+        </plugin>
     <!-- GPG Signed Components -->
-    <plugin>
-      <groupId>org.apache.maven.plugins</groupId>
-      <artifactId>maven-gpg-plugin</artifactId>
-      <version>3.1.0</version>
-      <executions>
-        <execution>
-          <id>sign-artifacts</id>
-          <phase>verify</phase>
-          <goals>
-            <goal>sign</goal>
-          </goals>
-        </execution>
-      </executions>
-      <configuration>
-        <gpgArguments>
-          <arg>--pinentry-mode</arg>
-          <arg>loopback</arg>
-        </gpgArguments>
-      </configuration>
-    </plugin>
+    
     
       </plugins>
     </pluginManagement>
