@@ -116,6 +116,42 @@ public class Approximation {
         
     }
     
+    
+    // Method to calculate Chebyshev nodes in the interval [1, 2]
+    public static double[] chebyshevNodes(int n, double a, double b) {
+        double[] nodes = new double[n];
+        for (int i = 0; i < n; i++) {
+            // Chebyshev nodes in the interval [-1, 1]
+            double x_i = Math.cos(Math.PI * (2 * (i + 1) - 1) / (2 * n));
+            // Map nodes from [-1, 1] to [a, b]
+            nodes[i] = 0.5 * (x_i + 1) * (b - a) + a;
+        }
+        return nodes;
+    }
+
+    // Method to calculate the natural logarithm of x
+    public static double ln(double x) {
+        return Math.log(x);
+    }
+
+    // Method to compute the Lagrange interpolation polynomial at point x
+    public static double lagrangeInterpolation(double x, double[] nodes, double[] values) {
+        double result = 0.0;
+        int n = nodes.length;
+        for (int i = 0; i < n; i++) {
+            double term = values[i];
+            for (int j = 0; j < n; j++) {
+                if (i != j) {
+                    term *= (x - nodes[j]) / (nodes[i] - nodes[j]);
+                }
+            }
+            result += term;
+        }
+        return result;
+    }
+
+    
+    
 	public static void ComputeChebyshevCoeffsSin(int numberOfNodes) {
 		 // Number of Chebyshev nodes
         int n = 22;

@@ -7,8 +7,36 @@ import io.github.nicolasyazman.Approximation;
 public class ApproximationTest {
 
 	@Test
+	public void ComputeChebyshevCoeffsForNaturalLogarithm() {
+		// Interval [1, 2]
+        double a = 1.0;
+        double b = 2.0;
+
+        // Degree of the polynomial (increase for better accuracy)
+        int n = 20;
+        
+        // Generate Chebyshev nodes in the interval [1, 2]
+        double[] nodes = Approximation.chebyshevNodes(n, a, b);
+
+        // Evaluate ln(x) at these nodes
+        double[] values = new double[n];
+        for (int i = 0; i < n; i++) {
+            values[i] = Math.log(nodes[i]);
+        }
+        
+        System.out.println("ChebyshevNodes:");
+        for (int i = 0; i < nodes.length; i++) {
+        	System.out.println(nodes[i]);
+        }
+        System.out.println("ChebyshevValues:");
+        for (int i = 0; i < values.length; i++) {
+        	System.out.println(values[i]);
+        }
+        
+	}
+	@Test
 	public void ComputeChebyshevCoeffsShouldBe() {
-		Approximation.ComputeChebyshevCoeffsSin(22);
+		Approximation.ComputeChebyshevCoeffsSin(32);
 		assertEquals(true, true);
 	}
 	
