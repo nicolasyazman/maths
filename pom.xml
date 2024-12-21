@@ -5,7 +5,7 @@
 
   <groupId>io.github.nicolasyazman</groupId>
   <artifactId>maths</artifactId>
-  <version>1.1.4</version>
+  <version>1.2</version>
 
   <name>${project.groupId}:${project.artifactId}</name>
   <description>Library containing an implementation of all the mathematical functions I came across in my working life.</description>

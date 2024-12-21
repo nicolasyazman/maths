@@ -1,11 +1,9 @@
-package io.github.nicolasyazman;
-
-import java.math.BigDecimal;
+package io.github.nicolasyazman.maths;
 
 public class Trigonometry {
 
 	/**
-	 * The value of exp¹
+	 * The value of exp(1)
 	 */
 	public static double E = 2.71828182845904523536028747135266249775724709369995957496696762772407663035;
 	
@@ -90,15 +88,6 @@ public class Trigonometry {
 			factorial(17), // x^16
 	};
 	
-	
-	private static int EXPONENTIAL_TABLE_IDX[] = {
-			1,
-			2,
-			4,
-			16,
-			256
-	};
-	
 	private static double EXPONENTIAL_TABLE[] = {
 			1,
 			2.71828182845904523536028747135266249775724709369995957496696762772407663035,     // e(1)
@@ -117,65 +106,6 @@ public class Trigonometry {
 			1.202604284164776777749236770767859449412486543376102240313290633197462E6,
 			
 	};
-	
-	/**
-	 * The Chebyshev coeffs for sine function.
-	 * TO BE IMPLEMENTED.
-	 */
-	private static double CHEBYSHEV_COEFFS_SIN[] = {
-			5.046468293750712E-17,
-			0.880101171489867,
-			7.065055611250996E-17,
-			-0.039126707965337015,
-			2.321375415125327E-16,
-			4.995154604219994E-4,
-			2.9269516103754126E-16,
-			-3.0046516354560864E-6,
-			2.220446049250313E-16,
-			1.0498499584828251E-8,
-			2.0185873175002848E-16,
-			-2.3960883782143067E-11,
-			9.083642928751281E-17,
-			3.805037093488037E-14,
-			-3.5325278056254984E-16,
-			-3.482063122687991E-16,
-			-5.702509171938304E-16,
-			-6.863196879500968E-16,
-			-3.3054367324067163E-16,
-			-1.0875139173032783E-15,
-			-1.6779507076721117E-16,
-			-2.115731832154986E-15
-	};
-	
-	/**
-	 * The Chebyshev coeffs for cosine function.
-	 * TO BE IMPLEMENTED.
-	 * Note: There seems to be a problem with these coefficients.
-	 */
-	private static double[] CHEBYSHEV_COEFFS_COS = {
-			1.530395373115933,
-			-2.0185873175002847E-17,
-			-0.22980696986380092,
-			1.312081756375185E-16,
-			0.0049532779282195705,
-			1.4130111222501992E-16,
-			-4.187667600510673E-5,
-			1.8671932686877633E-16,
-			1.8844688304264778E-7,
-			8.074349270001139E-17,
-			-5.261236042790204E-10,
-			2.0185873175002848E-16,
-			9.994984637919722E-13,
-			-5.046468293750712E-18,
-			-1.4685222734814572E-15,
-			-4.794144879063176E-16,
-			-2.296143073656574E-16,
-			-3.835315903250541E-16,
-			-7.09028795271975E-16,
-			-3.027880976250427E-17,
-			-5.412337245047638E-16,
-			-8.894400367735629E-17
-        };
 	
 	/**
 	 * These are the Chebyshev nodes corresponding to the X in the interval
@@ -319,6 +249,109 @@ public class Trigonometry {
       
     }
     
+    /**
+     * Constant used by the TaylorInterpolationArctan function.
+     */
+    private static double atanhi[] = {
+    		  4.63647609000806093515e-01, /* atan(0.5)hi 0x3FDDAC67, 0x0561BB4F */
+    		  7.85398163397448278999e-01, /* atan(1.0)hi 0x3FE921FB, 0x54442D18 */
+    		  9.82793723247329054082e-01, /* atan(1.5)hi 0x3FEF730B, 0xD281F69B */
+    		  1.57079632679489655800e+00, /* atan(inf)hi 0x3FF921FB, 0x54442D18 */
+    		};
+
+    /**
+     * Constant used by the TaylorInterpolationArctan function.
+     */
+    private static double atanlo[] = {
+    		  2.26987774529616870924e-17, /* atan(0.5)lo 0x3C7A2B7F, 0x222F65E2 */
+    		  3.06161699786838301793e-17, /* atan(1.0)lo 0x3C81A626, 0x33145C07 */
+    		  1.39033110312309984516e-17, /* atan(1.5)lo 0x3C700788, 0x7AF0CBBD */
+    		  6.12323399573676603587e-17, /* atan(inf)lo 0x3C91A626, 0x33145C07 */
+    		};
+
+    /**
+     * Constant used by the TaylorInterpolationArctan function.
+     */
+    private static double aT[] = {
+    		  3.33333333333329318027e-01, /* 0x3FD55555, 0x5555550D */
+    		 -1.99999999998764832476e-01, /* 0xBFC99999, 0x9998EBC4 */
+    		  1.42857142725034663711e-01, /* 0x3FC24924, 0x920083FF */
+    		 -1.11111104054623557880e-01, /* 0xBFBC71C6, 0xFE231671 */
+    		  9.09088713343650656196e-02, /* 0x3FB745CD, 0xC54C206E */
+    		 -7.69187620504482999495e-02, /* 0xBFB3B0F2, 0xAF749A6D */
+    		  6.66107313738753120669e-02, /* 0x3FB10D66, 0xA0D03D51 */
+    		 -5.83357013379057348645e-02, /* 0xBFADDE2D, 0x52DEFD9A */
+    		  4.97687799461593236017e-02, /* 0x3FA97B4B, 0x24760DEB */
+    		 -3.65315727442169155270e-02, /* 0xBFA2B444, 0x2C6A6C2F */
+    		  1.62858201153657823623e-02, /* 0x3F90AD3A, 0xE322DA11 */
+    		};
+    		
+    /**
+     * Computation an approximation of the arctangent of a ratio.
+     * 
+     * Method
+     *   1. Reduce x to positive by atan(x) = -atan(-x).
+     *   2. According to the integer k=4t+0.25 chopped, t=x, the argument
+     *      is further reduced to one of the following intervals and the
+	 *      arctangent of t is evaluated by the corresponding formula:
+	 *
+	 *      [0,7/16]      atan(x) = t-t^3*(a1+t^2*(a2+...(a10+t^2*a11)...)
+	 *      [7/16,11/16]  atan(x) = atan(1/2) + atan( (t-0.5)/(1+t/2) )
+	 *      [11/16.19/16] atan(x) = atan( 1 ) + atan( (t-1)/(1+t) )
+	 *      [19/16,39/16] atan(x) = atan(3/2) + atan( (t-1.5)/(1+1.5t) )
+	 *      [39/16,INF]   atan(x) = atan(INF) + atan( -1/t )
+	 *
+	 * Constants:
+	 * The hexadecimal values are the intended ones for the following
+	 * constants. The decimal values may be used, provided that the
+	 * compiler will convert from decimal to binary accurately enough
+	 * to produce the hexadecimal values shown.
+	 * 
+	 * For more information:
+     * See https://git.musl-libc.org/cgit/musl/tree/src/math/atan.c
+     * @param x A real representing a ratio of adjacent side to opposite side.
+     * @return The theta angle.
+     */
+    public static double TaylorInterpolationArctan(double x) {
+    	int id;
+    	boolean negative_sign;
+		if (x < 0.0) {
+			 negative_sign = true;
+		}
+		else {
+			 negative_sign  = false;
+		}
+		x = Math.abs(x);
+		if (x < 1.1875) {  /* |x| < 1.1875 */
+			if (x < 11.0/16.0) {  /*  7/16 <= |x| < 11/16 */
+				id = 0;
+				x = (2.0*x-1.0)/(2.0+x);
+			} else {                /* 11/16 <= |x| < 19/16 */
+				id = 1;
+				x = (x-1.0)/(x+1.0);
+			}
+		} else {
+			if (x < 2.4375) {  /* |x| < 2.4375 */
+				id = 2;
+				x = (x-1.5)/(1.0+1.5*x);
+			} else {                /* 2.4375 <= |x| < 2^66 */
+				id = 3;
+				x = -1.0/x;
+			}
+		}
+   
+    	double z = x*x;
+    	double w = z*z;
+    	/* break sum from i=0 to 10 aT[i]z**(i+1) into odd and even poly */
+    	double s1 = z*(aT[0]+w*(aT[2]+w*(aT[4]+w*(aT[6]+w*(aT[8]+w*aT[10])))));
+    	double s2 = w*(aT[1]+w*(aT[3]+w*(aT[5]+w*(aT[7]+w*aT[9]))));
+    	if (id < 0)
+    		return x - x*(s1+s2);
+    	z = atanhi[id] - (x*(s1+s2) - atanlo[id] - x);
+    	return negative_sign == true ? -z : z;
+    	
+    }
+    
  // Method to evaluate the Chebyshev series for cos(x)
     public static double chebyshevInterpolationcos(double x, double[] coeffs) {
     	
@@ -385,7 +418,6 @@ public class Trigonometry {
 	
 			// We can use the identity sin(A+B)=sin(A)cos(B)+cos(A)sin(B)
 			// With here A is PI / 4 and B the remainder over PI/2
-			double A = PI / 2;
 			double B = x - PI / 2;
 			resReduced = Trigonometry.cos(B);
 		}
@@ -393,7 +425,6 @@ public class Trigonometry {
 		{
 			// We can use the identity sin(A+B)=sin(A)cos(B)+cos(A)sin(B)
 			// With here A is PI / 4 and B the remainder over PI/4
-			double A = PI / 4;
 			double B = x - PI / 4;
 			resReduced = SIN_PI_4*Trigonometry.cos(B)+COS_PI_4*TaylorInterpolationSin(B);	
 		}
@@ -445,7 +476,6 @@ public class Trigonometry {
 			}
 			else if (x > PI / 4 && x < PI/2) {
 				// Cos (a + b) = cos a * cos b - sin a * sin b
-				double A = PI / 4;
 				double B = x - PI / 4;
 				return COS_PI_4 * Trigonometry.cos(B) - SIN_PI_4 * Trigonometry.sin(B);
 			}
@@ -510,6 +540,44 @@ public class Trigonometry {
 	}
 	
 	/**
+	 * An estimation of the arctangent function.
+	 * 
+	 * Important: Instead of using atan, consider using atan2.
+	 * @param x Ratio of the opposite side over the adjacent side (dy / dx)
+	 * @return Theta the angle 
+	 */
+	public static double atan(double x) {
+		return TaylorInterpolationArctan(x);
+	}
+	
+	/**
+	 * Computes an approximation of the arctangent of the ratio y / x.
+	 * 
+	 * @param y Any real. Represents the opposite side in a triangle.
+	 * @param x Any real. Represents the adjacent side in a triangle.
+	 * @return
+	 */
+	public static double atan2(double y, double x) {
+		if ((x > -0.0000001 && x < 0.000001) && y > 0){
+			return PI / 2.0;
+		}
+		if ((x > -0.000001 && x < 0.000001) && y < 0) {
+			return -PI/2.0;
+		}
+		if (x > 0) {
+			return atan(y/x);
+		}
+		if (x < 0 && y >= 0) {
+			return atan(y/x) + PI;
+		}
+		if (x < 0 && y < 0) {
+			return atan(y/x) - PI;
+		}
+		
+		return Double.NaN;
+	}
+	
+	/**
 	 * The logarithm of a number with base b.
 	 * As a reminder, logb(x) = log(x) / log(b).
 	 * 
@@ -535,13 +603,33 @@ public class Trigonometry {
 		return Trigonometry.log(x, 10);
 	}
 	
+	/**
+	 * Computes x to the power y.
+	 * @param x Any real.
+	 * @param y Any real
+	 * @return
+	 */
+	public static double pow(double x, double y) {
+		return Trigonometry.exp(y * Trigonometry.log(x));
+	}
+	
+	/**
+	 * The exponential function. 
+	 * 
+	 * Method:
+	 * Here we use the property of exp(a+b) = exp(a) * exp(b)
+	 * For example, exp(17.123) = exp(17) * exp(0.123)
+	 * Like this, we can reduce the exponential to the range [0,1]
+	 * Also, since we know that the max value of a double is 10E308, we "only" have to compute the
+	 * exp(1)...exp(308), otherwise it is "infinity" in the sense that it goes above the storage.	
+	 * Special cases:
+	 * NaN: Returns NaN
+	 * 
+	 * @param x Any floating point number.
+	 * @return The exponential of any number.
+	 */
 	public static double exp(double x) {
-		// Algorithm: 
-		// Here we use the property of exp(a+b) = exp(a) * exp(b)
-		// For example, exp(17.123) = exp(17) * exp(0.123)
-		// Like this, we can reduce the exponential to the range [0,1]
-		// Also, since we know that the max value of a double is 10E308, we "only" have to compute the
-		// exp(1)...exp(308), otherwise it is "infinity" in the sense that it goes above the storage
+		
 		// of 
 		if (x == 0) {
 			return 1.0;

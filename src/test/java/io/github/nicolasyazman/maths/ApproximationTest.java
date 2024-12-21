@@ -1,9 +1,10 @@
-package io.github.nicolasyazman;
+package io.github.nicolasyazman.maths;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
-import io.github.nicolasyazman.Approximation;
+
+import io.github.nicolasyazman.maths.Approximation;
 public class ApproximationTest {
 
 	@Test

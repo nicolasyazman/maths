@@ -1,14 +1,31 @@
-package io.github.nicolasyazman;
+package io.github.nicolasyazman.maths;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import io.github.nicolasyazman.Trigonometry;
 import org.junit.jupiter.api.Test;
+
+import io.github.nicolasyazman.maths.Trigonometry;
+
 import java.lang.Math;
 import java.util.Random;
 
 public class TrigonometryTest {
 
+	@Test
+	public void compute10ToThePower3() {
+		assertEquals(1000.0, Trigonometry.pow(10.0,3.0), Math.pow(10, -10));
+	}
+	
+	@Test
+	public void compute2ToThePower8() {
+		assertEquals(256, Trigonometry.pow(2,8), Math.pow(10, -10));
+	}
+	
+	@Test
+	public void computeNegativeNumberPower() {
+		assertEquals(1.0/256.0, Trigonometry.pow(2, -8), Math.pow(10, -10));
+	}
+	
+	
 	@Test
 	public void computePositiveCos() {
 		for (int i = 0; i < 1000; i++) {
@@ -38,7 +55,6 @@ public class TrigonometryTest {
 	}
 	@Test
 	public void computeExponentialApproximationAndCompareToSuns() {
-		double x = 0;
 		for (int i = 0; i < 10; i++) {
 			assertEquals(Math.exp((double)(i)*0.5), Trigonometry.exp((double)(i)*0.5), Math.pow(10,-12));
 		}
@@ -46,11 +62,34 @@ public class TrigonometryTest {
 
 	@Test
 	public void computeNegativeExponentialApproximationAndCompareToSuns() {
-		double x = 0;
 		for (int i = 0; i < 10; i++) {
 			assertEquals(Math.exp((double)(i)*-0.5), Trigonometry.exp((double)(i)*-0.5), Math.pow(10,-12));
 		}
 	}
+	
+	@Test
+	public void computeAtan2AndCompareToSuns() {
+		
+		for (int x = -100; x < 100; x++) {
+			for (int y = -100; y < 100; y++) {
+				if (x != y)
+				{
+					double sunAtan2 = Math.atan2((double)y, (double)x);
+					double myAtan2 = Trigonometry.atan2((double)y, (double)x);
+					assertEquals(sunAtan2, myAtan2, Math.pow(10, -12));			
+				}
+			}
+		}
+		
+	}
+	
+	/*
+	@Test
+	public void computeArctanAndCompareToSuns() {
+		for (int i = 0; i < 3; i++) {
+			assertEquals(Math.atan(i* (Math.PI /180.0)), Trigonometry.atan(i* (Math.PI /180.0)), Math.pow(10,-12));
+		}
+	}*/
 	
 	@Test
 	public void computeRandomExponentialBetween0and1AndCompareToSuns() {

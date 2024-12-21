@@ -1,4 +1,4 @@
-package io.github.nicolasyazman;
+package io.github.nicolasyazman.maths;
 
 import java.lang.Math;
 
