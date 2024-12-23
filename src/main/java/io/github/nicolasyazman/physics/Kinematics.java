@@ -1,5 +1,8 @@
 package io.github.nicolasyazman.physics;
 
+import com.aparapi.Kernel;
+import com.aparapi.Range;
+
 import io.github.nicolasyazman.maths.Matrix;
 import io.github.nicolasyazman.maths.Trigonometry;
 
@@ -77,6 +80,29 @@ public class Kinematics {
 		return new Point2D(res[0][0], res[1][0]);
 	}
 	
-	
+	public static void GPURotateImage(byte[] image, int rows, int cols, double theta) {
+		
+		final int size = rows * cols;
+		
+        final double[][] RotMat = rotationMatrix2D(theta, false);
+        
+        final double[] sum = new double[size];
+        final double[] xRot = new double[size];
+        final double[] yRot = new double[size];
+        
+		Kernel kernel = new Kernel(){
+	           @Override public void run() {
+	              int gid = getGlobalId();
+	              double y = (int)(gid / cols);
+	              double x = (int)(gid % cols);
+	              double currentRotation = Trigonometry.atan2(y, x);
+	              double newRotation = currentRotation+theta;
+	              
+	              xRot[gid] = x * RotMat[];
+	           }
+	        };
+	        
+	        kernel.execute(Range.create(size));
+	}
 	
 }

@@ -5,7 +5,7 @@
 
   <groupId>io.github.nicolasyazman</groupId>
   <artifactId>maths</artifactId>
-  <version>1.2</version>
+  <version>1.2.1</version>
 
   <name>${project.groupId}:${project.artifactId}</name>
   <description>Library containing an implementation of all the mathematical functions I came across in my working life.</description>
@@ -48,6 +48,12 @@
       <artifactId>junit-jupiter-params</artifactId>
       <scope>test</scope>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/com.aparapi/aparapi -->
+<dependency>
+    <groupId>com.aparapi</groupId>
+    <artifactId>aparapi</artifactId>
+    <version>3.0.2</version>
+</dependency>
   </dependencies>
 
   <developers>
@@ -116,7 +122,7 @@
           <artifactId>maven-project-info-reports-plugin</artifactId>
           <version>3.6.1</version>
         </plugin>
-            
+         
     </plugins>
     <!-- GPG Signed Components -->
     
