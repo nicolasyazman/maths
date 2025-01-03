@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+	<PackageId>MathsFromScratch.03.01.25.Test</PackageId>
+	<Version>1.1</Version>
+	<Authors>Nicolas Yazman</Authors>
+	<Company>Nicolas Yazman</Company>
+	<Description>The aim of the MathsFromScratch project is to teach students of any age
+	how to practice Maths in a fun way. The code (for the exposed API) should at all times be structured
+	in such a way that one glimpse at it should reveal the underlying equations in
+    an easy to understand way.</Description>
+	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+
+  </PropertyGroup>
+
+</Project>
